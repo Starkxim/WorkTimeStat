@@ -65,14 +65,17 @@ class TestMainWindow(unittest.TestCase):
         money_file = 'test_money_file.xlsx'
         rest_file = 'test_rest_file.xlsx'
         save_directory = ''
+        save_directory = ''
         mock_askdirectory.return_value = ''
         merge_files_ui()
         mock_showwarning.assert_called_with("警告", "未选择保存文件的文件夹")
 
         # Test successful merge
         save_directory = 'test_directory'
+        save_directory = 'test_directory'
         mock_askdirectory.return_value = 'test_directory'
         mock_merge_excel_files.return_value = 'output_file.xlsx'
         merge_files_ui()
         mock_merge_excel_files.assert_called_once_with('test_money_file.xlsx', 'test_rest_file.xlsx', 'test_directory')
+        mock_showinfo.assert_called_once_with("完成", f"数据合并和排序完成！结果已保存到: output_file.xlsx")
         mock_showinfo.assert_called_once_with("完成", f"数据合并和排序完成！结果已保存到: output_file.xlsx")
