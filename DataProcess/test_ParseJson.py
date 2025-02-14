@@ -2,6 +2,8 @@ import datetime
 import unittest
 from unittest.mock import MagicMock, patch
 
+import requests
+
 from DataProcess.ParseJson import get_holidays
 
 
@@ -43,7 +45,7 @@ class TestParseJson(unittest.TestCase):
 
     @patch('DataProcess.ParseJson.requests.get')
     def test_get_holidays_request_failure(self, mock_get):
-        mock_get.side_effect = Exception("Request failed")
+        mock_get.side_effect = requests.exceptions.RequestException("Request failed")
         with self.assertRaises(Exception) as context:
             get_holidays()
         self.assertEqual(str(context.exception), "获取节假日和补班日期失败，请检查网络连接")
