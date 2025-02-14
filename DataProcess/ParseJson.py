@@ -20,13 +20,13 @@ def get_holidays():
             start_date = holiday['StartDate']
             end_date = holiday['EndDate']
             comp_days = holiday['CompDays']
-            
+
             # 添加放假日期
             current_date = start_date
             while current_date <= end_date:
                 public_holidays.append(current_date)
                 current_date = str(pd.to_datetime(current_date) + pd.Timedelta(days=1))[:10]
-            
+
             # 添加补班日期
             makeup_workdays.extend(comp_days)
 
