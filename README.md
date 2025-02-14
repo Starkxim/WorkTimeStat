@@ -12,7 +12,7 @@ WorkTimeStat 是一个用 Python 编写的项目，用于统计和分析工作�
 
 1. 克隆仓库：
     ```bash
-    git clone https://github.com/yourusername/WorkTimeStat.git
+    git clone [https://github.com/yourusername/WorkTimeStat.git](https://github.com/Starkxim/WorkTimeStat.git)
     ```
 2. 进入项目目录：
     ```bash
