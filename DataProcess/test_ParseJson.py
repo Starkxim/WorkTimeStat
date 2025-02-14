@@ -4,7 +4,7 @@ from unittest.mock import MagicMock, patch
 
 import requests
 
-from ParseJson import get_holidays
+from DataProcess.ParseJson import get_holidays
 
 
 class TestParseJson(unittest.TestCase):
