@@ -1,8 +1,8 @@
 import unittest
-from unittest.mock import patch
+from unittest.mock import patch, MagicMock
 
 from DataProcess.excel import merge_files
-from ui.main_window import Update_holidays, select_money_file, select_rest_file
+from ui.main_window import Update_holidays, select_money_file, select_rest_file, merge_files as merge_files_ui
 
 
 class TestMainWindow(unittest.TestCase):
@@ -57,18 +57,22 @@ class TestMainWindow(unittest.TestCase):
         # Test when no files are selected
         money_file = ''
         rest_file = ''
-        merge_files()
+        save_directory = ''
+        merge_files_ui()
         mock_showwarning.assert_called_once_with("警告", "请先选择两个Excel文件")
 
         # Test when files are selected but no directory is chosen
         money_file = 'test_money_file.xlsx'
         rest_file = 'test_rest_file.xlsx'
+        save_directory = ''
         mock_askdirectory.return_value = ''
-        merge_files()
+        merge_files_ui()
         mock_showwarning.assert_called_with("警告", "未选择保存文件的文件夹")
 
         # Test successful merge
+        save_directory = 'test_directory'
         mock_askdirectory.return_value = 'test_directory'
         mock_merge_excel_files.return_value = 'output_file.xlsx'
-        merge_files()
+        merge_files_ui()
         mock_merge_excel_files.assert_called_once_with('test_money_file.xlsx', 'test_rest_file.xlsx', 'test_directory')
+        mock_showinfo.assert_called_once_with("完成", f"数据合并和排序完成！结果已保存到: output_file.xlsx")
