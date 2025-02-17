@@ -1,9 +1,10 @@
 import datetime
 import unittest
 from unittest.mock import MagicMock, patch
-
+import sys
+import os
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 import requests
-
 from DataProcess.ParseJson import get_holidays
 
 
@@ -49,3 +50,6 @@ class TestParseJson(unittest.TestCase):
         with self.assertRaises(Exception) as context:
             get_holidays()
         self.assertEqual(str(context.exception), "获取节假日和补班日期失败，请检查网络连接")
+
+if __name__ == '__main__':
+    unittest.main()

@@ -1,8 +1,10 @@
 import datetime
 import unittest
 from unittest.mock import MagicMock, patch
-
 import pandas as pd
+import sys
+import os
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 
 class TestMergeFiles(unittest.TestCase):
@@ -47,3 +49,6 @@ class TestMergeFiles(unittest.TestCase):
 
         # Mock the load_workbook function
         mock_wb = MagicMock()
+
+if __name__ == '__main__':
+    unittest.main()
