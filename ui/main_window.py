@@ -14,6 +14,7 @@ def check_holiday_files():
 def create_main_window():
     global tree
     root = Tk()
+    root.focus_force()
     root.title("工作时间处理工具")
     root.geometry("1000x400")
 
