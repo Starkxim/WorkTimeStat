@@ -51,3 +51,6 @@ def create_main_window():
     tree.configure(yscrollcommand=vsb.set, xscrollcommand=hsb.set)
 
     root.mainloop()
+
+if __name__ == "__main__":
+    print("程序应该从main.py启动")
