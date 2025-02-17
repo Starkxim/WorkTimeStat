@@ -6,8 +6,11 @@ from DataProcess.excel import merge_files as merge_excel_files
 import DataProcess.ParseJson as ParseJson
 
 def Update_holidays():
-    ParseJson.get_holidays()
-    messagebox.showinfo("更新完成！", "节假日和补班日期已更新，保存于HolidayData文件夹")
+    def run_update():
+        ParseJson.get_holidays()
+        messagebox.showinfo("更新完成！", "节假日和补班日期已更新，保存于HolidayData文件夹")
+
+    threading.Thread(target=run_update).start()
 
 def display_excel(tree, file_path):
     df = pd.read_excel(file_path)

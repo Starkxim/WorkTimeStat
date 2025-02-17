@@ -1,4 +1,5 @@
 import datetime
+import os
 import pandas as pd
 import requests
 
@@ -33,6 +34,8 @@ def get_holidays():
         holidays_df = pd.DataFrame(public_holidays, columns=["date"])
         makeup_workdays_df = pd.DataFrame(makeup_workdays, columns=["date"])
 
+        if not os.path.exists("HolidayData"):
+            os.makedirs("HolidayData")
         holidays_df.to_csv(f"HolidayData/public_holidays_{year}.csv", index=False, encoding="utf-8")
         makeup_workdays_df.to_csv(f"HolidayData/makeup_workdays_{year}.csv", index=False, encoding="utf-8")
     else:
