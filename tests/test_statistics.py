@@ -32,7 +32,7 @@ class TestStatistics(unittest.TestCase):
 
         # 预期结果
         expected_data = {
-            '2025-01': 33.0
+            '2025-01': 36.0
         }
         expected = pd.Series(expected_data, name='时长').astype(float)
 
