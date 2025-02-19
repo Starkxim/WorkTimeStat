@@ -4,6 +4,24 @@ import subprocess
 import pandas as pd
 from DataProcess.excel import merge_files as merge_excel_files
 import DataProcess.ParseJson as ParseJson
+from DataProcess.statistics import calculate_monthly_overtime, plot_monthly_overtime
+
+def show_monthly_overtime(tree):
+    global combined_file_path
+    combined_file_path = filedialog.askopenfilename(title="选择合并的Excel文件", filetypes=[("Excel files", "*.xlsx *.xls")])
+    if not combined_file_path:
+        messagebox.showwarning("警告", "请先合并文件")
+        return
+    monthly_overtime = calculate_monthly_overtime(combined_file_path)
+    messagebox.showinfo("每月加班时长", str(monthly_overtime))
+
+def show_overtime_chart(tree):
+    global combined_file_path
+    combined_file_path = filedialog.askopenfilename(title="选择合并的Excel文件", filetypes=[("Excel files", "*.xlsx *.xls")])
+    if not combined_file_path:
+        messagebox.showwarning("警告", "请先合并文件")
+        return
+    plot_monthly_overtime(combined_file_path)
 
 def Update_holidays():
     def run_update():

@@ -1,7 +1,7 @@
 from tkinter import Tk, Menu, ttk
 import os
 import pandas as pd
-from ui.utils.Utils_Functions import Update_holidays, select_money_file, select_rest_file, merge_files
+from ui.utils.Utils_Functions import Update_holidays, select_money_file, select_rest_file, merge_files, show_monthly_overtime, show_overtime_chart
 
 # 检测节假日文件是否存在，不存在则更新
 def check_holiday_files():
@@ -22,6 +22,14 @@ def create_main_window():
 
     menu = Menu(root)
     root.config(menu=menu)
+
+    # 创建“统计”菜单
+    stats_menu = Menu(menu, tearoff=False)
+    menu.add_cascade(label="统计", menu=stats_menu)
+    stats_menu.add_command(label="每月加班时长", command=lambda: show_monthly_overtime(tree))
+    stats_menu.add_command(label="加班时长图表", command=lambda: show_overtime_chart(tree))
+
+
 
     # 创建“附加”菜单
     additional_menu = Menu(menu, tearoff=False)
