@@ -1,4 +1,4 @@
-from tkinter import Tk, Menu, ttk
+from tkinter import Tk, Menu, ttk, END
 import os
 import pandas as pd
 from ui.utils.Utils_Functions import Update_holidays, select_money_file, select_rest_file, merge_files, show_monthly_overtime, show_overtime_chart, search_tree
@@ -23,16 +23,16 @@ def create_main_window():
     menu = Menu(root)
     root.config(menu=menu)
 
+    # 创建“附加”菜单
+    additional_menu = Menu(menu, tearoff=False)
+    menu.add_cascade(label="附加", menu=additional_menu)
+    additional_menu.add_command(label="更新节假日和补班日期", command=Update_holidays)
+
     # 创建“统计”菜单
     stats_menu = Menu(menu, tearoff=False)
     menu.add_cascade(label="统计", menu=stats_menu)
     stats_menu.add_command(label="每月加班时长", command=lambda: show_monthly_overtime(tree))
     stats_menu.add_command(label="加班时长图表", command=lambda: show_overtime_chart(tree))
-
-    # 创建“附加”菜单
-    additional_menu = Menu(menu, tearoff=False)
-    menu.add_cascade(label="附加", menu=additional_menu)
-    additional_menu.add_command(label="更新节假日和补班日期", command=Update_holidays)
 
     # 创建“文件”菜单
     file_menu = Menu(menu, tearoff=False)
@@ -57,10 +57,6 @@ def create_main_window():
     tree.pack(fill="both", expand=True)
     tree.configure(yscrollcommand=vsb.set, xscrollcommand=hsb.set)
 
-    # 添加显示图表按钮
-    btn_show_chart = ttk.Button(root, text="显示加班时长图表", command=lambda: show_overtime_chart(tree))
-    btn_show_chart.pack(pady=10)
-
     # 添加搜索框和按钮
     search_frame = ttk.Frame(root)
     search_frame.pack(pady=10)
@@ -68,7 +64,12 @@ def create_main_window():
     search_label = ttk.Label(search_frame, text="搜索:")
     search_label.pack(side='left')
 
+    def clear_entry(event):
+        search_entry.delete(0, END)
+
     search_entry = ttk.Entry(search_frame)
+    search_entry.insert(0, "输入搜索关键字")
+    search_entry.bind("<Button-1>", clear_entry)
     search_entry.pack(side='left', padx=5)
 
     search_button = ttk.Button(search_frame, text="搜索", command=lambda: search_tree(tree, search_entry.get()))

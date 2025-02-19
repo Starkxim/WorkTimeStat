@@ -8,9 +8,13 @@ from DataProcess.statistics import calculate_monthly_overtime, plot_monthly_over
 
 def search_tree(tree, search_text):
     global data
+    if 'data' not in globals():
+        messagebox.showwarning("警告", "没有数据可供搜索")
+        return
+
     for item in tree.get_children():
         tree.delete(item)
-
+    
     for row in data:
         if search_text.lower() in str(row).lower():
             tree.insert('', 'end', values=row)
