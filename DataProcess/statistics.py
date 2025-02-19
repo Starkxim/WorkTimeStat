@@ -27,4 +27,7 @@ def calculate_monthly_overtime(file_path):
     # 计算每月的计薪和调休加班时长
     monthly_overtime = df.groupby('月份')['时长'].sum()
     
+    # 将 PeriodIndex 转换为字符串格式
+    monthly_overtime.index = monthly_overtime.index.astype(str)
+    
     return monthly_overtime
