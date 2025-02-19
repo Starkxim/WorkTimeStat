@@ -6,6 +6,13 @@ from DataProcess.excel import merge_files as merge_excel_files
 import DataProcess.ParseJson as ParseJson
 from DataProcess.statistics import calculate_monthly_overtime, plot_monthly_overtime
 
+def center_window(root, width, height):
+    screenwidth = root.winfo_screenwidth()
+    screenheight = root.winfo_screenheight()
+    size = '%dx%d+%d+%d' % (width, height, (screenwidth - width) / 2, (screenheight - height) / 2)
+    root.geometry(size)
+    root.update()
+
 def search_tree(tree, search_text):
     global data
     if 'data' not in globals():
@@ -14,7 +21,7 @@ def search_tree(tree, search_text):
 
     for item in tree.get_children():
         tree.delete(item)
-    
+
     for row in data:
         if search_text.lower() in str(row).lower():
             tree.insert('', 'end', values=row)

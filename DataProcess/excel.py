@@ -56,7 +56,7 @@ def merge_files(money_file, rest_file, save_directory):
 
     df_combined = pd.merge(df_combined, total_money_hours, on='申请人', how='left')
     df_combined = pd.merge(df_combined, total_rest_hours, on='申请人', how='left')
-    
+
     if '类型' in df_combined.columns:
         df_combined['项目调休总时长'] = df_combined.apply(lambda x: 0 if x['类型'] == '计薪' else x['项目调休总时长'], axis=1)
         df_combined['项目计薪总时长'] = df_combined.apply(lambda x: 0 if x['类型'] == '调休' else x['项目计薪总时长'], axis=1)

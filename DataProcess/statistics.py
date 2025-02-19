@@ -20,15 +20,15 @@ def calculate_monthly_overtime(file_path):
     df = pd.read_excel(file_path)
     df['开始时间'] = pd.to_datetime(df['开始时间'])
     df['月份'] = df['开始时间'].dt.to_period('M')
-    
+
     # 处理时长列，转换为小时数
     df['时长'] = df['时长'].str.replace('小时', '').astype(float)
-    
+
     # 计算每月的计薪和调休加班时长
     monthly_overtime = df.groupby('月份')['时长'].sum()
-    
+
     # 将 PeriodIndex 转换为字符串格式
     monthly_overtime.index = monthly_overtime.index.astype(str)
     monthly_overtime.index.name = None  # 移除索引名称
-    
+
     return monthly_overtime
