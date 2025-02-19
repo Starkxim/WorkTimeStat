@@ -29,5 +29,6 @@ def calculate_monthly_overtime(file_path):
     
     # 将 PeriodIndex 转换为字符串格式
     monthly_overtime.index = monthly_overtime.index.astype(str)
+    monthly_overtime.index.name = None  # 移除索引名称
     
     return monthly_overtime
