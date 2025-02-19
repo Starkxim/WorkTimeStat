@@ -6,6 +6,15 @@ from DataProcess.excel import merge_files as merge_excel_files
 import DataProcess.ParseJson as ParseJson
 from DataProcess.statistics import calculate_monthly_overtime, plot_monthly_overtime
 
+def search_tree(tree, search_text):
+    global data
+    for item in tree.get_children():
+        tree.delete(item)
+
+    for row in data:
+        if search_text.lower() in str(row).lower():
+            tree.insert('', 'end', values=row)
+
 def show_monthly_overtime(tree):
     global combined_file_path
     combined_file_path = filedialog.askopenfilename(title="选择合并的Excel文件", filetypes=[("Excel files", "*.xlsx *.xls")])
@@ -31,7 +40,9 @@ def Update_holidays():
     threading.Thread(target=run_update).start()
 
 def display_excel(tree, file_path):
+    global data
     df = pd.read_excel(file_path)
+    data = df.values.tolist()  # 将 DataFrame 转换为列表并存储到全局变量 data 中
     tree["column"] = list(df.columns)
     tree["show"] = "headings"
     for col in tree["column"]:
