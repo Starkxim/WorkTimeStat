@@ -4,11 +4,10 @@ from unittest.mock import MagicMock, patch
 import sys
 import os
 import requests
+from DataProcess.ParseJson import get_holidays
 
 # 确保可以导入 DataProcess 模块
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
-
-from DataProcess.ParseJson import get_holidays
 
 
 class TestParseJson(unittest.TestCase):
@@ -61,7 +60,9 @@ class TestParseJson(unittest.TestCase):
 
     @patch("DataProcess.ParseJson.requests.get")
     @patch("DataProcess.ParseJson.messagebox.showerror")
-    def test_get_holidays_request_failure(self, mock_showerror: MagicMock, mock_get: MagicMock):
+    def test_get_holidays_request_failure(
+        self, mock_showerror: MagicMock, mock_get: MagicMock
+    ):
         """
         测试获取节假日和补班日期请求失败的情况。
 
@@ -77,7 +78,9 @@ class TestParseJson(unittest.TestCase):
         self.assertEqual(
             str(context.exception), "获取节假日和补班日期失败，请检查网络连接"
         )
-        mock_showerror.assert_called_once_with("错误", "请求中国节假日API失败: Request failed")
+        mock_showerror.assert_called_once_with(
+            "错误", "请求中国节假日API失败: Request failed"
+        )
 
 
 if __name__ == "__main__":
