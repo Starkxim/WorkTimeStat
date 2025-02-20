@@ -97,7 +97,7 @@ class TestStatistics(unittest.TestCase):
         将测试用的DataFrame保存为Excel文件，调用calculate_monthly_overtime函数计算每月加班时长，并断言结果是否正确。
         """
         # 将测试用的DataFrame保存为Excel文件
-        test_file_path = "test_combined_file.xlsx"
+        test_file_path = "tests/test_combined_file.xlsx"
         self.df.to_excel(test_file_path, index=False)
 
         # 计算每月加班时长
