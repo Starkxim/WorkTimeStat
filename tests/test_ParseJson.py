@@ -60,7 +60,8 @@ class TestParseJson(unittest.TestCase):
         self.assertTrue(f"HolidayData/makeup_workdays_{current_year}.csv" in args)
 
     @patch("DataProcess.ParseJson.requests.get")
-    def test_get_holidays_request_failure(self, mock_get: MagicMock):
+    @patch("DataProcess.ParseJson.messagebox.showerror")
+    def test_get_holidays_request_failure(self, mock_showerror: MagicMock, mock_get: MagicMock):
         """
         测试获取节假日和补班日期请求失败的情况。
 
@@ -68,6 +69,7 @@ class TestParseJson(unittest.TestCase):
 
         Args:
             mock_get (MagicMock): 模拟requests.get函数。
+            mock_showerror (MagicMock): 模拟messagebox.showerror函数。
         """
         mock_get.side_effect = requests.exceptions.RequestException("Request failed")
         with self.assertRaises(Exception) as context:
@@ -75,6 +77,7 @@ class TestParseJson(unittest.TestCase):
         self.assertEqual(
             str(context.exception), "获取节假日和补班日期失败，请检查网络连接"
         )
+        mock_showerror.assert_called_once_with("错误", "请求中国节假日API失败: Request failed")
 
 
 if __name__ == "__main__":
