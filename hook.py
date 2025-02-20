@@ -6,10 +6,10 @@ BASE_DIR = Path(__file__).parent
 
 for p in sys.path.copy():
     relative_p = Path(p).relative_to(BASE_DIR)
-    new_p = BASE_DIR / 'libs' / relative_p
+    new_p = BASE_DIR / "libs" / relative_p
     sys.path.insert(0, str(new_p))
 
-print(f'\n\n模块查找路径：')
+print(f"\n\n模块查找路径：")
 pprint(sys.path)
 
-print('\n')
+print("\n")

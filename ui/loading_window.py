@@ -1,6 +1,7 @@
 import tkinter as tk
 from ui.utils.Utils_Functions import center_window
 
+
 def show_loading_screen():
     loading_root = tk.Tk()
     loading_root.title("正在启动")

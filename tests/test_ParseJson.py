@@ -3,15 +3,16 @@ import unittest
 from unittest.mock import MagicMock, patch
 import sys
 import os
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 import requests
 from DataProcess.ParseJson import get_holidays
 
 
 class TestParseJson(unittest.TestCase):
 
-    @patch('DataProcess.ParseJson.requests.get')
-    @patch('DataProcess.ParseJson.pd.DataFrame.to_csv')
+    @patch("DataProcess.ParseJson.requests.get")
+    @patch("DataProcess.ParseJson.pd.DataFrame.to_csv")
     def test_get_holidays_success(self, mock_to_csv, mock_get):
         # Mock the current year
         current_year = datetime.datetime.now().year.__str__()
@@ -19,12 +20,12 @@ class TestParseJson(unittest.TestCase):
         # Mock the response from requests.get
         mock_response = MagicMock()
         mock_response.json.return_value = {
-            'Years': {
+            "Years": {
                 current_year: [
                     {
-                        'StartDate': '2023-01-01',
-                        'EndDate': '2023-01-03',
-                        'CompDays': ['2023-01-06']
+                        "StartDate": "2023-01-01",
+                        "EndDate": "2023-01-03",
+                        "CompDays": ["2023-01-06"],
                     }
                 ]
             }
@@ -44,12 +45,15 @@ class TestParseJson(unittest.TestCase):
         args, kwargs = mock_to_csv.call_args_list[1]
         self.assertTrue(f"HolidayData/makeup_workdays_{current_year}.csv" in args)
 
-    @patch('DataProcess.ParseJson.requests.get')
+    @patch("DataProcess.ParseJson.requests.get")
     def test_get_holidays_request_failure(self, mock_get):
         mock_get.side_effect = requests.exceptions.RequestException("Request failed")
         with self.assertRaises(Exception) as context:
             get_holidays()
-        self.assertEqual(str(context.exception), "获取节假日和补班日期失败，请检查网络连接")
+        self.assertEqual(
+            str(context.exception), "获取节假日和补班日期失败，请检查网络连接"
+        )
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     unittest.main()
