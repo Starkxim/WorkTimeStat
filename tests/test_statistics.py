@@ -5,9 +5,16 @@ from DataProcess.statistics import calculate_monthly_overtime
 
 
 class TestStatistics(unittest.TestCase):
+    """
+    测试统计功能的单元测试类。
+    """
 
     def setUp(self):
-        # 创建一个测试用的DataFrame
+        """
+        初始化测试数据。
+
+        创建一个测试用的DataFrame，包含加班记录数据。
+        """
         data = {
             "申请人": [
                 "丁嫚嫚",
@@ -84,6 +91,11 @@ class TestStatistics(unittest.TestCase):
         self.df["开始时间"] = pd.to_datetime(self.df["开始时间"])
 
     def test_calculate_monthly_overtime(self):
+        """
+        测试计算每月加班时长的功能。
+
+        将测试用的DataFrame保存为Excel文件，调用calculate_monthly_overtime函数计算每月加班时长，并断言结果是否正确。
+        """
         # 将测试用的DataFrame保存为Excel文件
         test_file_path = "test_combined_file.xlsx"
         self.df.to_excel(test_file_path, index=False)

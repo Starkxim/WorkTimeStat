@@ -4,8 +4,12 @@ import pandas as pd
 import ui.utils.Utils_Functions as uf
 
 
-# 检测节假日文件是否存在，不存在则更新
 def check_holiday_files():
+    """
+    检测节假日文件是否存在，不存在则更新。
+
+    检查当前年份的节假日和补班日期文件是否存在，如果不存在则调用更新函数。
+    """
     year = pd.Timestamp.now().year
     holiday_file = os.path.join("HolidayData", f"public_holidays_{year}.csv")
     makeup_workdays_file = os.path.join("HolidayData", f"makeup_workdays_{year}.csv")
@@ -14,6 +18,11 @@ def check_holiday_files():
 
 
 def create_main_window():
+    """
+    创建主窗口。
+
+    创建一个Tkinter主窗口，包含菜单、Treeview、搜索框和按钮，并启动主循环。
+    """
     global tree
     root = Tk()
     root.focus_force()
@@ -77,6 +86,11 @@ def create_main_window():
     search_label.pack(side="left")
 
     def clear_entry(event):
+        """
+        清空搜索框内容。
+
+        当搜索框被点击时，清空其内容。
+        """
         search_entry.delete(0, END)
 
     search_entry = ttk.Entry(search_frame)

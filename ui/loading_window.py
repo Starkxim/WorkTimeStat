@@ -3,6 +3,12 @@ from ui.utils.Utils_Functions import center_window
 
 
 def show_loading_screen():
+    """
+    显示加载窗口。
+
+    创建一个Tkinter窗口，显示加载信息，并在3秒后自动关闭。
+
+    """
     loading_root = tk.Tk()
     loading_root.title("正在启动")
     center_window(loading_root, 300, 100)

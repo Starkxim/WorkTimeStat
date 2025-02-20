@@ -3,17 +3,28 @@ import unittest
 from unittest.mock import MagicMock, patch
 import sys
 import os
-
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 import requests
 from DataProcess.ParseJson import get_holidays
 
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 class TestParseJson(unittest.TestCase):
+    """
+    测试ParseJson模块的单元测试类。
+    """
 
     @patch("DataProcess.ParseJson.requests.get")
     @patch("DataProcess.ParseJson.pd.DataFrame.to_csv")
-    def test_get_holidays_success(self, mock_to_csv, mock_get):
+    def test_get_holidays_success(self, mock_to_csv: MagicMock, mock_get: MagicMock):
+        """
+        测试成功获取节假日和补班日期的情况。
+
+        模拟requests.get函数返回成功的响应，并检查是否正确调用了to_csv方法保存数据。
+
+        Args:
+            mock_to_csv (MagicMock): 模拟pd.DataFrame.to_csv函数。
+            mock_get (MagicMock): 模拟requests.get函数。
+        """
         # Mock the current year
         current_year = datetime.datetime.now().year.__str__()
 
@@ -46,7 +57,15 @@ class TestParseJson(unittest.TestCase):
         self.assertTrue(f"HolidayData/makeup_workdays_{current_year}.csv" in args)
 
     @patch("DataProcess.ParseJson.requests.get")
-    def test_get_holidays_request_failure(self, mock_get):
+    def test_get_holidays_request_failure(self, mock_get: MagicMock):
+        """
+        测试获取节假日和补班日期请求失败的情况。
+
+        模拟requests.get函数抛出请求异常，并检查是否正确抛出了自定义异常。
+
+        Args:
+            mock_get (MagicMock): 模拟requests.get函数。
+        """
         mock_get.side_effect = requests.exceptions.RequestException("Request failed")
         with self.assertRaises(Exception) as context:
             get_holidays()

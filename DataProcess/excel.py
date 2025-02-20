@@ -5,7 +5,18 @@ from openpyxl import load_workbook
 from openpyxl.styles import Alignment
 
 
-def merge_files(money_file, rest_file, save_directory):
+def merge_files(money_file: str, rest_file: str, save_directory: str) -> str:
+    """
+    合并计薪和调休加班文件，并保存结果。
+
+    Args:
+        money_file (str): 计薪加班文件路径。
+        rest_file (str): 调休加班文件路径。
+        save_directory (str): 保存结果文件的目录。
+
+    Returns:
+        str: 保存的结果文件路径。
+    """
     time = datetime.datetime.now().strftime("%Y%M%d%H%M%S")
     output_file = os.path.join(save_directory, f"加班合并结果_{time}.xlsx")
 
@@ -149,7 +160,14 @@ def merge_files(money_file, rest_file, save_directory):
     wb = load_workbook(output_file)
     ws = wb.active
 
-    def merge_cells(ws, col):
+    def merge_cells(ws, col: int):
+        """
+        合并Excel单元格。
+
+        Args:
+            ws (Worksheet): Excel工作表对象。
+            col (int): 需要合并的列索引。
+        """
         max_row = ws.max_row
         merge_start = 2
         for row in range(3, max_row + 2):

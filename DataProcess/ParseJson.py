@@ -5,6 +5,14 @@ import requests
 
 
 def get_holidays():
+    """
+    获取节假日和补班日期。
+
+    从指定的URL获取节假日和补班日期的JSON数据，并将其保存为CSV文件。
+
+    Raises:
+        Exception: 如果获取数据失败，则抛出异常。
+    """
     year = datetime.datetime.now().year.__str__()
     try:
         url = "https://www.shuyz.com/githubfiles/china-holiday-calender/master/holidayAPI.json"

@@ -3,7 +3,15 @@ import matplotlib.pyplot as plt
 from matplotlib import rcParams
 
 
-def plot_monthly_overtime(file_path):
+def plot_monthly_overtime(file_path: str):
+    """
+    绘制每月加班时长柱状图。
+
+    读取指定文件路径的Excel文件，计算每月的加班时长，并绘制柱状图显示。
+
+    Args:
+        file_path (str): Excel文件路径。
+    """
     # 设置字体为支持中文的字体
     rcParams["font.sans-serif"] = ["SimHei"]  # 使用黑体
     rcParams["axes.unicode_minus"] = False  # 解决负号显示问题
@@ -18,7 +26,18 @@ def plot_monthly_overtime(file_path):
     plt.show()
 
 
-def calculate_monthly_overtime(file_path):
+def calculate_monthly_overtime(file_path: str) -> pd.Series:
+    """
+    计算每月加班时长。
+
+    读取指定文件路径的Excel文件，计算每月的加班时长，并返回结果。
+
+    Args:
+        file_path (str): Excel文件路径。
+
+    Returns:
+        pd.Series: 每月加班时长的Series对象，索引为月份，值为加班时长。
+    """
     df = pd.read_excel(file_path)
     df["开始时间"] = pd.to_datetime(df["开始时间"])
     df["月份"] = df["开始时间"].dt.to_period("M")

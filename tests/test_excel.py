@@ -9,6 +9,9 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")
 
 
 class TestMergeFiles(unittest.TestCase):
+    """
+    测试合并文件功能的单元测试类。
+    """
 
     @patch("DataProcess.excel.pd.read_csv")
     @patch("DataProcess.excel.pd.read_excel")
@@ -17,12 +20,24 @@ class TestMergeFiles(unittest.TestCase):
     @patch("DataProcess.excel.os.path.join")
     def test_merge_files_success(
         self,
-        mock_path_join,
-        mock_load_workbook,
-        mock_to_excel,
-        mock_read_excel,
-        mock_read_csv,
+        mock_path_join: MagicMock,
+        mock_load_workbook: MagicMock,
+        mock_to_excel: MagicMock,
+        mock_read_excel: MagicMock,
+        mock_read_csv: MagicMock,
     ):
+        """
+        测试合并文件成功的情况。
+
+        模拟读取CSV和Excel文件，合并数据并保存结果文件。
+
+        Args:
+            mock_path_join (MagicMock): 模拟os.path.join函数。
+            mock_load_workbook (MagicMock): 模拟load_workbook函数。
+            mock_to_excel (MagicMock): 模拟DataFrame.to_excel函数。
+            mock_read_excel (MagicMock): 模拟pd.read_excel函数。
+            mock_read_csv (MagicMock): 模拟pd.read_csv函数。
+        """
         # Mock the current year
         current_year = datetime.datetime.now().year.__str__()
 
