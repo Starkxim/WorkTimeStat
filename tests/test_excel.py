@@ -1,4 +1,3 @@
-import datetime
 import unittest
 from unittest.mock import MagicMock, patch
 import pandas as pd
@@ -38,8 +37,6 @@ class TestMergeFiles(unittest.TestCase):
             mock_read_excel (MagicMock): 模拟pd.read_excel函数。
             mock_read_csv (MagicMock): 模拟pd.read_csv函数。
         """
-        # Mock the current year
-        current_year = datetime.datetime.now().year.__str__()
 
         # Mock the file paths
         mock_path_join.return_value = "test_output_file.xlsx"
@@ -73,9 +70,6 @@ class TestMergeFiles(unittest.TestCase):
                 }
             ),
         ]
-
-        # Mock the load_workbook function
-        mock_wb = MagicMock()
 
 
 if __name__ == "__main__":

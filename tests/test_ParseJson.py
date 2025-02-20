@@ -8,6 +8,7 @@ from DataProcess.ParseJson import get_holidays
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
+
 class TestParseJson(unittest.TestCase):
     """
     测试ParseJson模块的单元测试类。

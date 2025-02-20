@@ -9,7 +9,7 @@ for p in sys.path.copy():
     new_p = BASE_DIR / "libs" / relative_p
     sys.path.insert(0, str(new_p))
 
-print(f"\n\n模块查找路径：")
+print("\n\n模块查找路径：")
 pprint(sys.path)
 
 print("\n")

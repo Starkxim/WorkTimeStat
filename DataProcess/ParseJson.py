@@ -1,6 +1,7 @@
 import datetime
 import os
 import pandas as pd
+from tkinter import messagebox
 import requests
 
 
@@ -20,6 +21,7 @@ def get_holidays():
         response.raise_for_status()  # 如果请求失败，抛出HTTPError异常
         data = response.json()
     except requests.exceptions.RequestException as e:
+        messagebox.showerror("错误", f"请求中国节假日API失败: {e}")
         data = None
 
     if data:
