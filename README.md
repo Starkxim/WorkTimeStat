@@ -1,6 +1,11 @@
 # WorkTimeStat
 
-WorkTimeStat 是一个用 Python 编写的项目，用于统计和分析工作时间。
+WorkTimeStat 是一个用于统计和分析工作时间的Python应用程序，主要功能包括：
+
+合并计薪和调休加班文件
+获取节假日和补班日期
+统计每月加班时长并生成图表
+提供图形用户界面（GUI）供用户操作
 
 ## 功能
 
@@ -10,14 +15,19 @@ WorkTimeStat 是一个用 Python 编写的项目，用于统计和分析工作�
 ## 安装
 
 1. 克隆仓库：
+
     ```bash
     git clone https://github.com/Starkxim/WorkTimeStat.git
     ```
+
 2. 进入项目目录：
+
     ```bash
     cd WorkTimeStat
     ```
+
 3. 安装依赖：
+
     ```bash
     pip install -r requirements.txt
     ```
@@ -25,6 +35,7 @@ WorkTimeStat 是一个用 Python 编写的项目，用于统计和分析工作�
 ## 使用
 
 运行以下命令开始记录工作时间：
+
 ```bash
 python main.py
 ```
