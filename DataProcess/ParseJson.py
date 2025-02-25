@@ -21,7 +21,7 @@ def get_holidays():
         response.raise_for_status()  # 如果请求失败，抛出HTTPError异常
         data = response.json()
     except requests.exceptions.RequestException as e:
-        messagebox.showerror("错误", f"请求中国节假日API失败: {e}，请检查网络连接，仍有问题请联系开发。")
+        messagebox.showerror("警告！", f"请求中国节假日API失败: {e}。\n请检查网络连接并手动获取数据。若仍无数据，可以自行填写节假日及补班数据。")
         data = None
 
     if data is None:
