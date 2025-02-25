@@ -21,8 +21,11 @@ def get_holidays():
         response.raise_for_status()  # 如果请求失败，抛出HTTPError异常
         data = response.json()
     except requests.exceptions.RequestException as e:
-        messagebox.showerror("错误", f"请求中国节假日API失败: {e}")
+        messagebox.showerror("错误", f"请求中国节假日API失败: {e}，请检查网络连接，仍有问题请联系开发。")
         data = None
+
+    if data is None:
+        data = {"Years": {year: []}}  # 使用空数据结构继续执行
 
     if data:
         public_holidays = []
@@ -55,5 +58,3 @@ def get_holidays():
         makeup_workdays_df.to_csv(
             f"HolidayData/makeup_workdays_{year}.csv", index=False, encoding="utf-8"
         )
-    else:
-        raise Exception("获取节假日和补班日期失败，请检查网络连接")
