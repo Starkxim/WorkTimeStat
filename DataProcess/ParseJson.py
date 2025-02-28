@@ -22,7 +22,7 @@ def get_holidays():
         data = response.json()
     except requests.exceptions.RequestException as e:
         messagebox.showerror("警告！", f"请求中国节假日API失败: {e}。\n请检查网络连接并手动获取数据。若仍无数据，可以自行填写节假日及补班数据。")
-        data = None
+        raise Exception("获取节假日和补班日期失败，请检查网络连接") from e
 
     if data is None:
         data = {"Years": {year: []}}  # 使用空数据结构继续执行

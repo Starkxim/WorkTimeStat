@@ -79,7 +79,7 @@ class TestParseJson(unittest.TestCase):
             str(context.exception), "获取节假日和补班日期失败，请检查网络连接"
         )
         mock_showerror.assert_called_once_with(
-            "错误", "请求中国节假日API失败: Request failed"
+            "警告！", "请求中国节假日API失败: Request failed。\n请检查网络连接并手动获取数据。若仍无数据，可以自行填写节假日及补班数据。"
         )
 
 
