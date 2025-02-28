@@ -5,3 +5,4 @@ __pycache__/
 /.pytest_cache
 /tests/test_combined_file.xlsx
 tests/test_combined_file.xlsx
+*.xlsx
