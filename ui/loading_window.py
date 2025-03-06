@@ -15,6 +15,7 @@ def check_holiday_files():
     holiday_file = os.path.join("HolidayData", f"public_holidays_{year}.csv")
     makeup_workdays_file = os.path.join("HolidayData", f"makeup_workdays_{year}.csv")
     if not os.path.exists(holiday_file) or not os.path.exists(makeup_workdays_file):
+        tk.messagebox.showinfo("提示", "节假日数据文件不存在，正在更新，数据将下载到HolidayData文件夹")
         ParseJson.get_holidays()
 
 
