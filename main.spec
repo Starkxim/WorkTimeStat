@@ -37,6 +37,7 @@ exe = EXE(
     codesign_identity=None,
     entitlements_file=None,
     version='version-file.txt',  # 添加版本信息文件
+    icon='WorkTimeIcon.jpg',  # 添加图标文件
 )
 coll = COLLECT(
     exe,
