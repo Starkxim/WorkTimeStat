@@ -2,9 +2,61 @@ import datetime
 import os
 import pandas as pd
 from openpyxl import load_workbook
-from openpyxl.styles import Alignment
+from openpyxl.styles import Alignment, Border, Side
 from typing import List, Tuple
 
+class CXlAutofit():
+    # 生成列名字典，只是为了方便修改列宽时指定列，key:数字，从1开始；value:列名，从A开始
+    def get_num_colnum_dict(self):
+        '''
+        :return: 返回字典：{1:'A', 2:'B', ...... , 52:'AZ'}
+        '''
+        num_str_dict = {}
+        A_Z = [chr(a) for a in range(ord('A'), ord('Z') + 1)]
+        AA_AZ = ['A' + chr(a) for a in range(ord('A'), ord('Z') + 1)]
+        A_AZ = A_Z + AA_AZ
+        for i in A_AZ:
+            num_str_dict[A_AZ.index(i) + 1] = i
+        return num_str_dict
+        
+    # 自适应列宽
+    def style_excel(self,excel_name:str,sheet_name:str):
+        '''
+        :param sheet_name:  excel中的sheet名
+        :return:
+        '''
+        wb = load_workbook(excel_name)
+        sheet = wb[sheet_name]
+        max_column = sheet.max_column
+        max_row = sheet.max_row
+
+        # 将每一列，单元格列宽最大的列宽值存到字典里，key:列的序号从1开始(与字典num_str_dic中的key对应)；value:列宽的值
+        max_column_dict = {}
+
+        num_str_dict = self.get_num_colnum_dict()
+
+        for i in range(1, max_column + 1):
+            for j in range(1, max_row + 1):
+                column = 0
+                sheet_value = sheet.cell(row=j, column=i).value
+                sheet_value_list = [k for k in str(sheet_value)]
+                for v in sheet_value_list:
+                    # 判定长度，一个数字或一个字母，单元格列宽+=1.1，其它+=2.2（长度可根据需要自行修改，经测试一个字母的列宽长度大概为1）
+                    if v.isdigit() == True or v.isalpha() == True:
+                        column += 1.1
+                    else:
+                        column += 2.2
+                # 当前单元格列宽与字典中的对比，大于字典中的列宽值则将字典更新。如果字典没有这个key，抛出异常并将值添加到字典中
+                try:
+                    if column > max_column_dict[i]:
+                        max_column_dict[i] = column
+                except Exception as e:
+                    max_column_dict[i] = column
+        # 此时max_column_dict字典中已存有当前sheet的所有列的最大列宽值，直接遍历字典修改列宽
+        for key, value in max_column_dict.items():
+            sheet.column_dimensions[num_str_dict[key]].width = value + 5 # 5为列宽的额外值，可根据需要自行修改
+
+        wb.save(excel_name)
 
 def read_holiday_data(year: str) -> Tuple[List[str], List[str]]:
     """
@@ -140,7 +192,25 @@ def merge_files(money_file: str, rest_file: str, save_directory: str) -> str:
         for col in columns_to_merge:
             merge_cells(ws, col)
 
+        # 添加边框
+        thin_border = Border(
+            left=Side(style='thin'),
+            right=Side(style='thin'),
+            top=Side(style='thin'),
+            bottom=Side(style='thin')
+        )
+
+        for row in ws.iter_rows():
+            for cell in row:
+                cell.border = thin_border
+
+        ws.freeze_panes = 'A2' # 冻结第一行
         wb.save(output_file)
+
+        # 调用方法 实例化类
+        Entity = CXlAutofit()
+        # 传入参数：Excel名称，需要设置列宽的Sheet名称
+        Entity.style_excel(output_file,'Sheet1')
 
         return output_file
 
