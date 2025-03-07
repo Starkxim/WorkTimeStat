@@ -30,7 +30,7 @@ jobs:
     - name: pyinstaller
       run: |
         pip install pyinstaller 
-        pyinstaller -F -w --clean main.py
+        pyinstaller main.spec
 
     - name: Create release
       id: create_release
