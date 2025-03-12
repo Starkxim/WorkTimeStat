@@ -49,6 +49,6 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: dist/main.exe  # 这里你可以使用生成的 exe 文件的路径
-        asset_name: main.exe  # 这里你可以使用生成的 exe 文件的名称
+        asset_path: dist/WTS_${{ github.event.inputs.version }}/WorkTimeStat.exe  # 这里是生成的 exe 文件的路径
+        asset_name: WorkTimeStat.exe  # 这里是生成的 exe 文件的名称
         asset_content_type: application/octet-stream
