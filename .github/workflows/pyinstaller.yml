@@ -29,8 +29,14 @@ jobs:
 
     - name: pyinstaller
       run: |
-        pip install pyinstaller 
+        pip install pyinstaller
         pyinstaller main.spec
+
+    - name: Get latest dist folder
+      id: get_latest_dist
+      run: |
+        LATEST_DIST=$(ls -td dist/*/ | head -1)
+        echo "LATEST_DIST=${LATEST_DIST}" >> $GITHUB_ENV
 
     - name: Create release
       id: create_release
@@ -49,6 +55,6 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: dist/WTS_${{ github.event.inputs.version }}/WorkTimeStat.exe  # 这里是生成的 exe 文件的路径
+        asset_path: ${{ env.LATEST_DIST }}/WorkTimeStat.exe  # 这里是生成的 exe 文件的路径
         asset_name: WorkTimeStat.exe  # 这里是生成的 exe 文件的名称
         asset_content_type: application/octet-stream
